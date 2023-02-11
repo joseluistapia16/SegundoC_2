@@ -66,6 +66,7 @@ class LoginK:
                       , "programador", "A")
 
         if obu.usuario =="SegundoK" and obu.password == "1234":
+           self.ven.destroy()
            obk1 = MenuK(obu)
         else:
             messagebox.showinfo("Advertencia","Credenciales invalidas!",

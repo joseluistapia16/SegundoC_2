@@ -1,11 +1,14 @@
 from tkinter import *
 from dominio.entidades import *
+from vistas.createStudent import *
 class MenuK:
 
     def __init__(self, obj = None):
+        self.obU=None
         self.rutaI = "C:/Users/sopor/OneDrive/Imágenes/python-poo.png"
         titulo = ""
         if obj != None:
+            self.obU= obj
             titulo = "Usuario:"+obj.nombre+" "+obj.apellido+"."
         self.__getWindow(titulo)
         self.__getMenu()
@@ -25,7 +28,7 @@ class MenuK:
         #cascada
         iten1 = Menu(self.menu)
         self.menu.add_cascade(label= "Archivo", menu= iten1)
-        iten1.add_command(label="Registro")
+        iten1.add_command(label="Registro",command=self.__opc1)
         iten1.add_command(label= "Gestion de estudiantes")
         iten1.add_separator()
         iten1.add_command(label="Salir", command=self.__salir)
@@ -40,6 +43,9 @@ class MenuK:
         panel = Label(self.ven,image=img).place(x=x,y=y)
         self.ven.mainloop()
 
+    def __opc1(self):
+        NewStudent(self.obU)
+
     def __salir(self):
         self.ven.destroy()
 
@@ -47,5 +53,5 @@ class MenuK:
 
 #codigo de prueba
 
-obj = MenuK()
+#obj = MenuK()
 

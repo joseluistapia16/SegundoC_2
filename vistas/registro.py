@@ -59,15 +59,19 @@ class Registro:
         self.profesion.place(x=posX,y=350,width=200,height=30)
 
     def __getButtons(self):
-        btn1 = Button(self.ven1, relief="flat", text="Aceptar",
-                      bg="orange", fg="black", font=("Arial", 12),
-                      command=self.__save,
-                      cursor="hand1").place(x=200, y=410, width=110,height=40)
-
-        btn2 = Button(self.ven1, relief="flat", text="Cancelar",
-                  bg="orange", fg="black", font=("Arial", 12),
-                  command=self.ven1.destroy,
-                  cursor="hand1").place(x=400, y=410, width=110, height=40)
+        btn1 = Button(self.marco, relief="flat",
+                      text="Nuevo", bg ="green",
+                      font=("Arial",11),fg="white", cursor="hand1",
+                      command=self.vaciar
+                      ).place(x=570,y=30,width=110,height=25)
+        self.guardar= Button(self.marco,relief="flat",text="Guardar",
+                             bg="green",font=("Arial",16),fg="white",
+                             cursor="hand1",command=self.save)
+        self.guardar.place(x=200,y=370,width=110,height=40)
+        self.cancelar= Button(self.marco,relief="flat",text="Cancelar",
+                             bg="green",font=("Arial",16),fg="white",
+                             cursor="hand1",command=self.venR.destroy)
+        self.cancelar.place(x=360,y=370,width=110,height=40)
     def __save(self):
         messagebox.showinfo("Registro",self.user.get(),
                             parent=self.ven1)
