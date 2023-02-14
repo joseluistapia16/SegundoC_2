@@ -1,9 +1,11 @@
 from tkinter import *
 from dominio.entidades import *
 from vistas.createStudent import *
+from vistas.processGui import *
 class MenuK:
 
     def __init__(self, obj = None):
+        self.cv= GuiProcess()
         self.obU=None
         self.rutaI = "C:/Users/sopor/OneDrive/Imágenes/python-poo.png"
         titulo = ""
@@ -18,7 +20,7 @@ class MenuK:
     def __getWindow(self, titulo):
         self.ven = Tk()
         self.ven.title(titulo)
-        self.ven.geometry("1000x570")
+        self.cv.center(self.ven,1000,570)
         self.ven.config(bg="purple")
         self.ven.resizable(0, 0)
 

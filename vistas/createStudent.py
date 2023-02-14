@@ -1,10 +1,11 @@
 from tkinter.ttk import Combobox
 from tkinter import messagebox
 from tkinter import *
-
+from vistas.processGui import *
 class NewStudent:
 
     def __init__(self,obj=None):
+        self.cv= GuiProcess()
         self.lista=["DESARROLLO DE SOFTWARE","ANALISIS DE DATOS",
                     "MARKETTING","DISEÑO GRAFICO"]
         self.__getWindow()
@@ -17,7 +18,7 @@ class NewStudent:
     def __getWindow(self,titulo=None):
         self.ven2 = Toplevel()
         self.ven2.title(titulo)
-        self.ven2.geometry("700x490")
+        self.cv.center(self.ven2,700,490)
         self.ven2.config(bg="purple")
         self.ven2.resizable(0,0)
 

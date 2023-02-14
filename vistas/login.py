@@ -3,9 +3,11 @@ from tkinter import messagebox
 from vistas.menu import *
 from dominio.entidades import *
 from vistas.registro import *
+from vistas.processGui import *
 class LoginK:
 
     def __init__(self):
+        self.wc=GuiProcess()
         self.__getWindow()
         self.__getLabels()
         self.__getInputs()
@@ -16,7 +18,8 @@ class LoginK:
     def __getWindow(self):
         self.ven= Tk()
         self.ven.title("Segundo K")
-        self.ven.geometry("400x300")
+        self.wc.center(self.ven,400,300)
+        #self.ven.geometry("400x300")
         self.ven.config(bg="purple")
         self.ven.resizable(0,0)
 

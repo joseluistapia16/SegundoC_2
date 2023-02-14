@@ -1,9 +1,11 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
+from vistas.processGui import *
 class Registro:
 
     def __init__(self):
+        self.cv = GuiProcess()
         self.lista=["Desarrollador","Contador","Docente","Medico","Otro"]
         self.__getWindow()
         self.__getLabels()
@@ -14,7 +16,7 @@ class Registro:
     def __getWindow(self):
         self.ven1 = Toplevel()
         self.ven1.title("Segundo K")
-        self.ven1.geometry("700x490")
+        self.cv.center(self.ven1,700,490)
         self.ven1.config(bg="purple")
         self.ven1.resizable(0,0)
 
@@ -59,22 +61,30 @@ class Registro:
         self.profesion.place(x=posX,y=350,width=200,height=30)
 
     def __getButtons(self):
-        btn1 = Button(self.marco, relief="flat",
+        btn1 = Button(self.ven1, relief="flat",
                       text="Nuevo", bg ="green",
                       font=("Arial",11),fg="white", cursor="hand1",
-                      command=self.vaciar
+                      command=self.__vaciar
                       ).place(x=570,y=30,width=110,height=25)
-        self.guardar= Button(self.marco,relief="flat",text="Guardar",
+        self.guardar= Button(self.ven1,relief="flat",text="Guardar",
                              bg="green",font=("Arial",16),fg="white",
-                             cursor="hand1",command=self.save)
-        self.guardar.place(x=200,y=370,width=110,height=40)
-        self.cancelar= Button(self.marco,relief="flat",text="Cancelar",
+                             cursor="hand1",command=self.__save)
+        self.guardar.place(x=200,y=420,width=110,height=40)
+        self.cancelar= Button(self.ven1,relief="flat",text="Cancelar",
                              bg="green",font=("Arial",16),fg="white",
-                             cursor="hand1",command=self.venR.destroy)
-        self.cancelar.place(x=360,y=370,width=110,height=40)
+                             cursor="hand1",command=self.ven1.destroy)
+        self.cancelar.place(x=360,y=420,width=110,height=40)
+
     def __save(self):
         messagebox.showinfo("Registro",self.user.get(),
                             parent=self.ven1)
+
+    def __vaciar(self):
+        self.user.delete(0,END)
+        self.password.delete(0,END)
+        self.nombres.delete(0,END)
+        self.apellidos.delete(0,END)
+        self.correo.delete(0,END)
 
 # Codigo de prueba
 #obr = Registro()
