@@ -48,7 +48,11 @@ class NewStudent:
 
     def __getInputs(self):
         posX= 350
-        self.cedula = Entry(self.marco,font=("Tahoma",16),bg="#D6EAF8")
+        self.validate1 = self.marco.register(self.validateId)
+        self.cedula = Entry(self.marco,validate="key",
+                            font=("Tahoma",16),bg="#D6EAF8",
+                            validatecommand=(self.validate1,"%d","%S","%s"))
+
         self.cedula.place(x=posX,y=100,width=200,height=25)
         self.nombres = Entry(self.marco,font=("Tahoma",16),bg="#D6EAF8")
         self.nombres.place(x=posX,y=150,width=200,height=25)
@@ -91,6 +95,12 @@ class NewStudent:
 
     def save(self):
         pass
+
+
+    def validateId(self,accion,car,texto):
+        if accion!='1':
+            return True
+        return car in "1234567890" and len(texto)<10
 
 #Codigo de prueba
 #pr = NewStudent()
