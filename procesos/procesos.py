@@ -60,5 +60,16 @@ def inputInt(cadena):
             num=-1
     return num
 
+class Cadenas:
+
+    def getNumber(self,value):
+        msg=""
+        if len(value)>0:
+            for i in range(1,len(value)):
+                msg=msg+value[i]
+            return int(msg)
+        else:
+            return -1
+
 
 

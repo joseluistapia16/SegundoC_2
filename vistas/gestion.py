@@ -3,17 +3,24 @@ from tkinter import ttk
 from vistas.processGui import *
 from dominio.entidades import *
 from vistas.createStudent import *
+from procesos.procesos import *
 class GestionDatos:
 
     def __init__(self,obj = None):
+        self.clk =0
+        self.cad = Cadenas()
         self.obU = obj
         self.n_fila=[-1,-1]
         self.cv = GuiProcess()
+        self.datos = []
+        #Generar datos
+        self.datos= self.fillList()
+        #*********
         self.getWindow()
         self.getLabels()
         self.getInputs()
         self.getButtons()
-        self.__showTable()
+        self.__showTable(self.datos)
         self.venT.mainloop()
 
 
@@ -45,7 +52,7 @@ class GestionDatos:
     def getButtons(self):
         btn1 = Button(self.venT,relief="flat",text="Buscar",
                       bg="green",fg="black",font=("Arial",12),
-                      #command=self.__logueo,
+                      command=self.getFilter,
                       cursor="hand1").place(x=680,y=80,width=90,height=20)
         btn2 = Button(self.venT, relief="flat", text="Salir",
                       bg="green", fg="black", font=("Arial", 12),
@@ -58,11 +65,6 @@ class GestionDatos:
                       cursor="hand1").place(x=460,y=350,width=90)
 
     def __showTable(self,lista1=None):
-        lista1=[]
-        for i in range(0,5):
-            obj=Estudiantes("1234567","Jose Carlos",
-                                      "Linares Lopez","Correo",123)
-            lista1.append(obj)
         self.tabla = ttk.Treeview(self.venT,columns=(1,2,3,4,5),
                                   show="headings",height=8)
         self.tabla.bind("<1>",self.onClick)
@@ -95,13 +97,51 @@ class GestionDatos:
     def reg1(self):
         NewStudent(self.obU)
 
-    def onClick(self):
-        pass
+    def getFilter(self):
+        self.datos = self.getData(self.cedula.get())
+        if self.datos!=[]:
+            self.__showTable(self.datos)
+            self.cedula.delete(0,END)
+        else:
+            self.datos= self.fillList()
+            self.__showTable(self.datos)
+
+
+    def onClick(self,event):
+        item = event.widget.identify("item",event.x,event.y)
+        pos = self.cad.getNumber(item)
+        if pos!=-1:
+            self.clk+=1
+            if self.clk==1:
+                self.n_fila[0]=pos
+            if self.clk==2:
+                self.n_fila[1]=pos
+                self.clk=0
+            if self.clk==0 and self.n_fila[0]==self.n_fila[1]:
+                print("Ventana 1")
+
+
 
     def validateId(self,accion,car,texto):
         if accion!='1':
             return True
         return car in "1234567890" and len(texto)<10
+
+    def getData(self,id):
+        lista2=[]
+        for i in range(len(self.datos)):
+            if id== self.datos[i].cedula:
+                lista2.append(self.datos[i])
+        return lista2
+
+    def fillList(self):
+        lista3 =[]
+        for i in range(0,5):
+            obj=Estudiantes("1234567"+str(i+1),"Jose Carlos"+str(i+1),
+                                      "Linares Lopez","Correo",123)
+            lista3.append(obj)
+        return lista3
+
 
 # Codigo de prueba
 v1 = GestionDatos()
