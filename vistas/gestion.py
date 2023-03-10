@@ -4,6 +4,7 @@ from vistas.processGui import *
 from dominio.entidades import *
 from vistas.createStudent import *
 from procesos.procesos import *
+from vistas.editStudent import *
 class GestionDatos:
 
     def __init__(self,obj = None):
@@ -118,7 +119,8 @@ class GestionDatos:
                 self.n_fila[1]=pos
                 self.clk=0
             if self.clk==0 and self.n_fila[0]==self.n_fila[1]:
-                print("Ventana 1")
+                print(pos)
+                EditStudent(self.datos[pos-1])
 
 
 
@@ -138,10 +140,10 @@ class GestionDatos:
         lista3 =[]
         for i in range(0,5):
             obj=Estudiantes("1234567"+str(i+1),"Jose Carlos"+str(i+1),
-                                      "Linares Lopez","Correo",123)
+                                      "Linares Lopez","Correo",123,"Desarrollo ")
             lista3.append(obj)
         return lista3
 
 
 # Codigo de prueba
-v1 = GestionDatos()
+#v1 = GestionDatos()

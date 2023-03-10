@@ -2,6 +2,7 @@ from tkinter import *
 from dominio.entidades import *
 from vistas.createStudent import *
 from vistas.processGui import *
+from vistas.gestion import *
 class MenuK:
 
     def __init__(self, obj = None):
@@ -31,7 +32,7 @@ class MenuK:
         iten1 = Menu(self.menu)
         self.menu.add_cascade(label= "Archivo", menu= iten1)
         iten1.add_command(label="Registro",command=self.__opc1)
-        iten1.add_command(label= "Gestion de estudiantes")
+        iten1.add_command(label= "Gestion de estudiantes",command=self.__opc2)
         iten1.add_separator()
         iten1.add_command(label="Salir", command=self.__salir)
         iten2 = Menu(self.menu)
@@ -47,6 +48,9 @@ class MenuK:
 
     def __opc1(self):
         NewStudent(self.obU)
+
+    def __opc2(self):
+        GestionDatos(self.obU)
 
     def __salir(self):
         self.ven.destroy()
