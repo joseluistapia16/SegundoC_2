@@ -2,9 +2,11 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
 from vistas.processGui import *
+from dao.crudUsuario import *
 class Registro:
 
     def __init__(self):
+        self.crud = CrudUser()
         self.cv = GuiProcess()
         self.lista=["Desarrollador","Contador","Docente","Medico","Otro"]
         self.__getWindow()
@@ -76,8 +78,21 @@ class Registro:
         self.cancelar.place(x=360,y=420,width=110,height=40)
 
     def __save(self):
-        messagebox.showinfo("Registro",self.user.get(),
+        obj = Usuario(self.user.get(),self.password.get(),
+                 self.nombres.get(),self.apellidos.get(),
+                 self.correo.get(),self.lista[0],"A")
+        res = self.__validar(obj)
+        if len(res)==0:
+            pos = self.profesion.current()
+            datos = (self.user.get(),self.password.get(),
+                     self.nombres.get(),self.apellidos.get(),
+                     self.correo.get(),self.lista[pos],"A")
+            msg = self.crud.insertUser("segundok",datos)
+            messagebox.showinfo("Registro",msg,
                             parent=self.ven1)
+        else:
+            messagebox.showinfo("Registro", res,
+                                parent=self.ven1)
 
     def __vaciar(self):
         self.user.delete(0,END)
@@ -85,6 +100,20 @@ class Registro:
         self.nombres.delete(0,END)
         self.apellidos.delete(0,END)
         self.correo.delete(0,END)
+
+    def __validar(self,obj):
+        res = ""
+        if len(obj.usuario)<5:
+            res = res+"Usuario Invalido!"
+        if len(obj.password)<4:
+            res = res+"Password Invalido!"
+        if len(obj.nombre)<3:
+            res = res + "Nombres Invalido!"
+        if len(obj.apellido)<3:
+            res = res + "Apellidos Invalidos!"
+        if len(obj.correo)<7:
+            res = res + "Correo Invalido!"
+        return res
 
 # Codigo de prueba
 #obr = Registro()

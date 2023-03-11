@@ -4,9 +4,11 @@ from vistas.menu import *
 from dominio.entidades import *
 from vistas.registro import *
 from vistas.processGui import *
+from dao.crudUsuario import *
 class LoginK:
 
     def __init__(self):
+        self.crud = CrudUser()
         self.wc=GuiProcess()
         self.__getWindow()
         self.__getLabels()
@@ -65,12 +67,11 @@ class LoginK:
     def __logueo(self):
         usu = self.usuario.get()
         pas1 = self.clave.get()
-        obu = Usuario(usu, pas1, "Bayron", "Canales", "bayr@gamil.com"
-                      , "programador", "A")
-
-        if obu.usuario =="SegundoK" and obu.password == "1234":
+        datos=(usu,pas1,"A")
+        obj = self.crud.getLoggin("segundok",datos)
+        if obj!=None:
            self.ven.destroy()
-           obk1 = MenuK(obu)
+           obk1 = MenuK(obj)
         else:
             messagebox.showinfo("Advertencia","Credenciales invalidas!",
                                 parent=self.ven)
