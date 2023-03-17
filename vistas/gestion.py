@@ -5,17 +5,21 @@ from dominio.entidades import *
 from vistas.createStudent import *
 from procesos.procesos import *
 from vistas.editStudent import *
+from dao.crudEstudiante import *
 class GestionDatos:
 
     def __init__(self,obj = None):
+        self.crud = CrudStudent()
+        datos1=("A",)
+        self.datos  = self.crud.getAllStudents("segundok",datos1)
         self.clk =0
         self.cad = Cadenas()
         self.obU = obj
         self.n_fila=[-1,-1]
         self.cv = GuiProcess()
-        self.datos = []
+
         #Generar datos
-        self.datos= self.fillList()
+
         #*********
         self.getWindow()
         self.getLabels()
@@ -146,4 +150,4 @@ class GestionDatos:
 
 
 # Codigo de prueba
-#v1 = GestionDatos()
+v1 = GestionDatos()

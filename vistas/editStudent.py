@@ -3,9 +3,11 @@ from tkinter import messagebox
 from tkinter import *
 from vistas.processGui import *
 from dominio.entidades import *
+from dao.crudEstudiante import *
 class EditStudent:
 
     def __init__(self,obj=None):
+        self.crud = CrudStudent()
         self.cv= GuiProcess()
         self.lista=["DESARROLLO DE SOFTWARE","ANALISIS DE DATOS",
                     "MARKETTING","DISEÑO GRAFICO"]
@@ -74,7 +76,7 @@ class EditStudent:
         btn1 = Button(self.marco, relief="flat",
                       text="Eliminar", bg ="green",
                       font=("Arial",16),fg="white", cursor="hand1",
-                      command=self.__deleteFields
+                      command=self.__eliminar
                       ).place(x=290,y=410,width=110,height=40)
         self.guardar= Button(self.marco,relief="flat",text="Guardar",
                              bg="green",font=("Arial",16),fg="white",
@@ -97,6 +99,13 @@ class EditStudent:
         self.apellidos.delete(0,END)
         self.correo.delete(0,END)
         self.codigo_mat.delete(0,END)
+
+    def __eliminar(self):
+        datos = ("I",self.cedula.get())
+        res = self.crud.deleteUser("segundok",datos)
+        messagebox.showinfo("Eliminado",
+                            res,parent=self.ven2)
+
 
     def save(self):
         pass

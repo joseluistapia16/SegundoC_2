@@ -137,3 +137,4 @@ class Estudiantes:
         self.cod_mat = args[4]
         self.carrera = args[5]
         self.id_usuario = args[6]
+        self.estado=args[7]
