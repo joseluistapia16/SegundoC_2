@@ -1,9 +1,13 @@
 from core.core import *
+from vistas.login import *
+if __name__ == '__main__':
+    lg = LoginK("Segundo K")
+"""
 if __name__ == '__main__':
     inicio = Core()
     inicio.start()
 
-
+ """
 
 
 

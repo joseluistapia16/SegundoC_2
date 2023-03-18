@@ -7,21 +7,21 @@ from vistas.processGui import *
 from dao.crudUsuario import *
 class LoginK:
 
-    def __init__(self):
+    def __init__(self,titulo=""):
         self.crud = CrudUser()
         self.wc=GuiProcess()
-        self.__getWindow()
+        self.__getWindow(titulo)
         self.__getLabels()
         self.__getInputs()
         self.__getButtons()
         self.ven.mainloop()
 
 
-    def __getWindow(self):
+    def __getWindow(self,titulo):
         self.ven= Tk()
-        self.ven.title("Segundo K")
+        print(titulo," Titulo")
+        self.ven.title(titulo)
         self.wc.center(self.ven,400,300)
-        #self.ven.geometry("400x300")
         self.ven.config(bg="purple")
         self.ven.resizable(0,0)
 
@@ -84,4 +84,4 @@ class LoginK:
 
 
 
-prb = LoginK()
+

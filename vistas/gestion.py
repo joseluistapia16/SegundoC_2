@@ -108,7 +108,8 @@ class GestionDatos:
             self.__showTable(self.datos)
             self.cedula.delete(0,END)
         else:
-            self.datos= self.fillList()
+            tupla = ("A",)
+            self.datos= self.crud.getAllStudents("segundok",tupla)
             self.__showTable(self.datos)
 
 
@@ -124,6 +125,10 @@ class GestionDatos:
                 self.clk=0
             if self.clk==0 and self.n_fila[0]==self.n_fila[1]:
                 print(pos)
+                print(self.datos[pos-1].cedula,self.datos[pos-1].nombres,
+                      self.datos[pos-1].apellidos,self.datos[pos-1].correo,
+                      self.datos[pos-1].cod_mat,self.datos[pos-1].estado,
+                      self.datos[pos-1].id_usuario,self.datos[pos-1].carrera)
                 EditStudent(self.datos[pos-1])
 
 
@@ -150,4 +155,4 @@ class GestionDatos:
 
 
 # Codigo de prueba
-v1 = GestionDatos()
+#v1 = GestionDatos()

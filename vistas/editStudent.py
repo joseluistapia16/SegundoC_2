@@ -4,18 +4,20 @@ from tkinter import *
 from vistas.processGui import *
 from dominio.entidades import *
 from dao.crudEstudiante import *
+
 class EditStudent:
 
     def __init__(self,obj=None):
         self.crud = CrudStudent()
         self.cv= GuiProcess()
-        self.lista=["DESARROLLO DE SOFTWARE","ANALISIS DE DATOS",
-                    "MARKETTING","DISEÑO GRAFICO"]
+        self.lista = ["DESARROLLO DE SOFTWARE", "ANALISIS DE DATOS",
+                      "MARKETTING", "DISEÑO GRAFICO"]
         self.__getWindow()
         self.__getFrame()
         self.__getLabels()
         self.__getInputs()
         self.__getButtons()
+        print(obj.carrera)
         self.fillData(obj)
         self.ven2.mainloop()
 
@@ -108,7 +110,23 @@ class EditStudent:
 
 
     def save(self):
-        pass
+        pos = self.carrera.current()
+        obj= Estudiantes(self.cedula.get(),self.nombres.get(),
+                         self.apellidos.get(),self.correo.get(),
+                         int(self.codigo_mat.get()),"A",
+                         "JOSE33",self.lista[pos])
+        print(obj.getData(), " editar")
+        msg = self.__validar(obj)
+        if len(msg)<1:
+            tupla = (obj.nombres,obj.apellidos,
+                     obj.correo,obj.carrera,obj.cedula)
+            msg = self.crud.updateStudent("segundok",tupla)
+            messagebox.showinfo("Actualizar",
+                            msg, parent=self.ven2)
+        else:
+            messagebox.showerror("Error de datos",
+                                 msg,parent=self.ven2)
+
 
 
     def validateId(self,accion,car,texto):
@@ -124,6 +142,34 @@ class EditStudent:
         self.correo.insert(0, obj.correo)
         self.codigo_mat.insert(0,str(obj.cod_mat))
         self.codigo_mat['state']="disabled"
+        name = self.getName(self.lista,obj.carrera)
+        print(name, "prueba")
+        self.carrera.set(name)
+
+
+    def getName(self,carreras,name):
+        msg = None
+        print(carreras," - ",name)
+        for i in range(len(carreras)):
+            if name==carreras[i]:
+                msg= carreras[i]
+                break
+        return msg
+
+    def __validar(self, obj):
+        res = ""
+        if len(obj.cedula) < 10:
+            res = res + "Cedula Invalida!"
+        if len(obj.nombres) < 2:
+            res = res + "Nombres Invalido!"
+        if len(obj.apellidos) < 2:
+            res = res + "Apellidos Invalidos!"
+        if len(obj.correo) < 7:
+            res = res + "Correo Invalido!"
+        if len(str(obj.cod_mat)) < 2:
+            res = res + "Codigo Invalido!"
+        return res
+
 
 #Codigo de prueba
 #pr = NewStudent()

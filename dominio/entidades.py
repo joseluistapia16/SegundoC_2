@@ -135,6 +135,12 @@ class Estudiantes:
         self.apellidos = args[2]
         self.correo = args[3]
         self.cod_mat = args[4]
-        self.carrera = args[5]
+        self.estado=args[5]
         self.id_usuario = args[6]
-        self.estado=args[7]
+        self.carrera = args[7]
+
+    def getData(self):
+        return self.cedula+" "+self.nombres+" "+self.apellidos+ " "\
+               +self.correo+" "+str(self.cod_mat)+" "+self.estado+" "\
+               +self.id_usuario+" "+self.carrera
+

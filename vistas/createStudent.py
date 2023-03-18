@@ -106,14 +106,15 @@ class NewStudent:
                            int(self.codigo_mat.get()),
                            self.lista[pos],
                            self.obU.usuario, "A")
+        print(obj1.getData())
         res = self.__validar(obj1)
         if len(res) > 0:
 
             messagebox.showinfo("Registro", res, parent=self.ven2)
         else:
             datos=(obj1.cedula,obj1.nombres,obj1.apellidos,
-                   obj1.correo,obj1.cod_mat,obj1.carrera,
-                   obj1.id_usuario,obj1.estado)
+                   obj1.correo,obj1.cod_mat,obj1.estado,
+                   obj1.id_usuario,obj1.carrera)
             res= self.crud.insertStudent("segundok",datos)
             messagebox.showinfo("Registro",res,parent=self.ven2)
 
