@@ -8,7 +8,7 @@ class MenuK:
     def __init__(self, obj = None):
         self.cv= GuiProcess()
         self.obU=None
-        self.rutaI = "C:/Users/sopor/OneDrive/Imágenes/python-poo.png"
+        self.rutaI = "C:/Users/Usuario/PycharmProjects/SegundoC_2/python-poo.png"
         titulo = ""
         if obj != None:
             self.obU= obj
