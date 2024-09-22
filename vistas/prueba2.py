@@ -19,9 +19,6 @@ class GestionDatos:
         self.obU = obj
         self.n_fila = [-1, -1]
         self.cv = GuiProcess()
-
-        # Generar datos
-
         # *********
         self.getWindow()
         self.getLabels()
@@ -50,10 +47,7 @@ class GestionDatos:
         self.search_var = StringVar()  # Variable para la búsqueda en tiempo real
         self.search_var.trace("w", self.update_table)  # Actualiza la tabla en tiempo real cuando se escribe
         self.filtro = Entry(self.venT, textvariable=self.search_var,
-                            #validate="key",
-                            font=("Arial", 12), fg="black", bg="white",
-                            #validatecommand=(self.validate1, "%d", "%S", "%s")
-                            )
+                            font=("Arial", 12), fg="black", bg="white")
         self.filtro.place(x=450, y=77)
 
     def getButtons(self):
@@ -174,10 +168,7 @@ class GestionDatos:
         # Vuelve a mostrar los datos actualizados en la tabla
         self.__showTable(self.datos)
 
-    def validateId(self, accion, car, texto):
-        if accion != '1':
-            return True
-        return car in "1234567890" and len(texto) < 10
+
 
 if __name__ == '__main__':
     GestionDatos()

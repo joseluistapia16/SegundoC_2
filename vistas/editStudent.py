@@ -112,8 +112,6 @@ class EditStudent:
         if self.callback:
             self.callback()
 
-        # Cierra la ventana después de guardar
-        self.ven2.destroy()
 
     def save(self):
         pos = self.carrera.current()
@@ -132,9 +130,6 @@ class EditStudent:
             # Llamamos al callback (función para actualizar la tabla) si está definida
             if self.callback:
                 self.callback()
-
-            # Cierra la ventana después de guardar
-            self.ven2.destroy()
         else:
             messagebox.showerror("Error de datos", msg, parent=self.ven2)
 
