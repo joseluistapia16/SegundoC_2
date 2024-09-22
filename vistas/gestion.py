@@ -116,6 +116,7 @@ class GestionDatos:
     def onClick(self,event):
         item = event.widget.identify("item",event.x,event.y)
         pos = self.cad.getNumber(item)
+        print("Pos :",pos)
         if pos!=-1:
             self.clk+=1
             if self.clk==1:
@@ -155,4 +156,5 @@ class GestionDatos:
 
 
 # Codigo de prueba
-#v1 = GestionDatos()
+if __name__ == '__main__':
+   v1 = GestionDatos()
