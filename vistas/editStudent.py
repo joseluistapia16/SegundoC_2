@@ -7,11 +7,12 @@ from dao.crudEstudiante import *
 
 class EditStudent:
 
-    def __init__(self,obj=None):
+    def __init__(self, obj=None, callback=None):
         self.crud = CrudStudent()
-        self.cv= GuiProcess()
+        self.cv = GuiProcess()
         self.lista = ["DESARROLLO DE SOFTWARE", "ANALISIS DE DATOS",
                       "MARKETTING", "DISEÑO GRAFICO"]
+        self.callback = callback  # Callback para actualizar la tabla después de guardar
         self.__getWindow()
         self.__getFrame()
         self.__getLabels()
@@ -107,25 +108,35 @@ class EditStudent:
         res = self.crud.deleteUser("segundok",datos)
         messagebox.showinfo("Eliminado",
                             res,parent=self.ven2)
+        # Llamamos al callback (función para actualizar la tabla) si está definida
+        if self.callback:
+            self.callback()
 
+        # Cierra la ventana después de guardar
+        self.ven2.destroy()
 
     def save(self):
         pos = self.carrera.current()
-        obj= Estudiantes(self.cedula.get(),self.nombres.get(),
-                         self.apellidos.get(),self.correo.get(),
-                         int(self.codigo_mat.get()),"A",
-                         "JOSE33",self.lista[pos])
+        obj = Estudiantes(self.cedula.get(), self.nombres.get(),
+                          self.apellidos.get(), self.correo.get(),
+                          int(self.codigo_mat.get()), "A",
+                          "JOSE33", self.lista[pos])
         print(obj.getData(), " editar")
         msg = self.__validar(obj)
-        if len(msg)<1:
-            tupla = (obj.nombres,obj.apellidos,
-                     obj.correo,obj.carrera,obj.cedula)
-            msg = self.crud.updateStudent("segundok",tupla)
-            messagebox.showinfo("Actualizar",
-                            msg, parent=self.ven2)
+        if len(msg) < 1:
+            tupla = (obj.nombres, obj.apellidos,
+                     obj.correo, obj.carrera, obj.cedula)
+            msg = self.crud.updateStudent("segundok", tupla)
+            messagebox.showinfo("Actualizar", msg, parent=self.ven2)
+
+            # Llamamos al callback (función para actualizar la tabla) si está definida
+            if self.callback:
+                self.callback()
+
+            # Cierra la ventana después de guardar
+            self.ven2.destroy()
         else:
-            messagebox.showerror("Error de datos",
-                                 msg,parent=self.ven2)
+            messagebox.showerror("Error de datos", msg, parent=self.ven2)
 
 
 

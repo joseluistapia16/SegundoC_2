@@ -43,22 +43,24 @@ class GestionDatos:
             x=480, y=30)
         lb2 = Label(self.venT, fg="white", bg="purple",
                     font=("Arial", 12),
-                    text="Cedula").place(
+                    text="Filtro").place(
             x=380, y=77)
 
     def getInputs(self):
-        self.validate1 = self.venT.register(self.validateId)
         self.search_var = StringVar()  # Variable para la búsqueda en tiempo real
         self.search_var.trace("w", self.update_table)  # Actualiza la tabla en tiempo real cuando se escribe
-
-        self.cedula = Entry(self.venT, textvariable=self.search_var,
+        self.filtro = Entry(self.venT, textvariable=self.search_var,
                             #validate="key",
                             font=("Arial", 12), fg="black", bg="white",
                             #validatecommand=(self.validate1, "%d", "%S", "%s")
                             )
-        self.cedula.place(x=450, y=77)
+        self.filtro.place(x=450, y=77)
 
     def getButtons(self):
+        btn1 = Button(self.venT,relief="flat",text="Refrescar",
+                      bg="green",fg="black",font=("Arial",12),
+                      command=self.actualizar_tabla,
+                      cursor="hand1").place(x=680,y=71,width=90)
         btn2 = Button(self.venT, relief="flat", text="Salir",
                       bg="green", fg="black", font=("Arial", 12),
                       command=self.venT.destroy,
@@ -132,8 +134,7 @@ class GestionDatos:
             # Recupera los valores de la fila seleccionada
             valores = self.tabla.item(item, "values")
             print("Valores seleccionados: ", valores)
-
-            # Busca la posición de los datos originales basados en el valor de la cédula (o algún otro identificador único)
+            # Busca la posición de los datos originales basados en el valor de la cédula
             for idx, student in enumerate(self.datos):
                 if student.cedula == valores[1]:  # Suponiendo que el valor de cédula está en la columna 2
                     pos = idx
@@ -155,10 +156,23 @@ class GestionDatos:
                     # Muestra la información del estudiante seleccionado
                     estudiante = self.datos[pos]
 
-                    # Llama a la función para editar el estudiante
-                    EditStudent(estudiante)
-        else:
-            print("No se seleccionó ningún item.")
+                    # Llama a la función para editar el estudiante, pasando una función de callback para actualizar la tabla
+                    EditStudent(estudiante, self.actualizar_tabla)
+            else:
+                print("No se seleccionó ningún item.")
+
+    def actualizar_tabla(self):
+        """ Actualiza la tabla con los datos más recientes después de la edición """
+        # Obtén los datos más recientes
+        datos1 = ("A",)
+        self.datos = self.crud.getAllStudents("segundok", datos1)
+
+        # Limpia la tabla actual antes de actualizarla
+        for item in self.tabla.get_children():
+            self.tabla.delete(item)
+
+        # Vuelve a mostrar los datos actualizados en la tabla
+        self.__showTable(self.datos)
 
     def validateId(self, accion, car, texto):
         if accion != '1':
